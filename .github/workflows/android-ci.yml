@@ -1,0 +1,114 @@
+name: Android CI
+
+# Every PR and every merge to main: lint, unit tests, debug APK, release AAB.
+# Instrumented UI tests (live fifi.cooking API) run on an emulator on main
+# and on demand. Tags v* additionally build a signed release when the upload
+# key secrets are configured (see README › Releasing).
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: android-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ANDROID_PLATFORM: "platforms;android-37.0"
+  ANDROID_BUILD_TOOLS: "build-tools;37.0.0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Install Android SDK 37
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "$ANDROID_PLATFORM" "$ANDROID_BUILD_TOOLS" > /dev/null
+      - name: Lint, unit tests, debug APK, release bundle
+        run: ./gradlew --console=plain :app:lintRelease :app:testDebugUnitTest :app:assembleDebug :app:bundleRelease
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
+      - uses: actions/upload-artifact@v7
+        with:
+          name: fifi-recipes-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+  ui-tests:
+    # Emulator runs are slow; keep PRs fast and run the full UI suite on main.
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Install Android SDK 37
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "$ANDROID_PLATFORM" "$ANDROID_BUILD_TOOLS" > /dev/null
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - name: Instrumented tests (phone emulator, API 35)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          script: ./gradlew --console=plain :app:connectedDebugAndroidTest
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ui-test-reports
+          path: app/build/reports/androidTests/
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Install Android SDK 37
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "$ANDROID_PLATFORM" "$ANDROID_BUILD_TOOLS" > /dev/null
+      - name: Restore upload key
+        env:
+          UPLOAD_KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}
+          UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
+        run: |
+          if [ -z "$UPLOAD_KEYSTORE_BASE64" ]; then echo "::error::UPLOAD_KEYSTORE_BASE64 secret not set"; exit 1; fi
+          echo "$UPLOAD_KEYSTORE_BASE64" | base64 -d > fifi-upload.jks
+          printf 'storeFile=fifi-upload.jks\nstorePassword=%s\nkeyAlias=fifi-upload\nkeyPassword=%s\n' \
+            "$UPLOAD_KEYSTORE_PASSWORD" "$UPLOAD_KEYSTORE_PASSWORD" > keystore.properties
+      - name: Signed APK + AAB
+        run: ./gradlew --console=plain :app:assembleRelease :app:bundleRelease
+      - name: Attach to GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk "fifi-recipes-${GITHUB_REF_NAME}.apk"
+          cp app/build/outputs/bundle/release/app-release.aab "fifi-recipes-${GITHUB_REF_NAME}.aab"
+          gh release create "$GITHUB_REF_NAME" "fifi-recipes-${GITHUB_REF_NAME}.apk" "fifi-recipes-${GITHUB_REF_NAME}.aab" \
+            --title "FiFi Recipes ${GITHUB_REF_NAME}" --generate-notes

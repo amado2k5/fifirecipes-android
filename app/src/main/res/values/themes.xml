@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window theme under Compose: cream paper. System bars are made
+         transparent/light by enableEdgeToEdge() in MainActivity. -->
+    <style name="Theme.Fifi" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/paper</item>
+    </style>
+
+    <!-- Android 12+ SplashScreen API (backported by core-splashscreen). -->
+    <style name="Theme.Fifi.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/paper</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Fifi</item>
+    </style>
+</resources>

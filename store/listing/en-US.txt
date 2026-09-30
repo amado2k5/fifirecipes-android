@@ -1,0 +1,38 @@
+TITLE
+FiFi Recipes
+
+SHORT DESCRIPTION
+1,000+ Egyptian family recipes in 24 languages, plus a Kids cooking mode.
+
+FULL DESCRIPTION
+Dr. Fatma's beloved Egyptian home cooking, on your phone and tablet.
+
+FiFi Recipes brings the complete fifi.cooking archive — more than a thousand family recipes — to Android, in 24 languages. Browse by chapter, search by ingredient, and cook step by step with clear, numbered instructions.
+
+EVERY RECIPE, IN YOUR LANGUAGE
+• 24 languages, from Arabic and English to Urdu, Japanese, Swahili and more
+• Full right-to-left layouts for Arabic, Urdu, Persian, Pashto and Hebrew
+• Beautiful type for every script, including Nastaliq for Urdu
+• Works with Android's per-app language setting
+
+COOK WITH CONFIDENCE
+• Tick off ingredients as you gather them
+• Numbered steps, alternative methods and handy tips
+• "From Fatma's notebook" — the story and culture behind each dish
+• Estimated calories, protein, carbs and fat
+• Tap the photo to zoom in on the details
+• Watch recipe videos right in the app
+
+KIDS IN THE KITCHEN
+A bright, illustrated Kids mode for families cooking together: a get-ready checklist (wash hands, apron, grown-up nearby), tickable ingredients with drawings, allergen warnings, big swipeable step cards that keep the screen awake, grown-up alerts for the tricky parts, and a celebration when the dish is done.
+
+MADE FOR EVERY ANDROID SCREEN
+• Phones, foldables, tablets and Chromebooks — the layout adapts as you fold, rotate or resize
+• Two-column recipes on large screens
+• Keyboard shortcuts, mouse and trackpad support
+• TalkBack, large text and high contrast friendly
+
+PRIVATE BY DESIGN
+No account, no ads, no tracking, no data collected. Just recipes.
+
+An internet connection is required to load recipes from fifi.cooking.
