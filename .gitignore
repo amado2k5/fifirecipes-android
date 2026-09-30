@@ -1,0 +1,16 @@
+*.iml
+.gradle/
+/local.properties
+.idea/
+.DS_Store
+build/
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+# Upload signing key + passwords — never commit. Back these up somewhere safe.
+keystore.properties
+*.jks
+*.keystore
+/release/
