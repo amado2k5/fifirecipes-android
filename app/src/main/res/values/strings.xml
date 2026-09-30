@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand name is the same in every language (matches the iOS apps). All
+         in-app UI text comes from assets/ui-strings.json (24 languages). -->
+    <string name="app_name" translatable="false">FiFi Recipes</string>
+</resources>

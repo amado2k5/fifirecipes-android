@@ -14,3 +14,4 @@ keystore.properties
 *.jks
 *.keystore
 /release/
+node_modules/
