@@ -71,7 +71,10 @@ object RecipeLocalization {
             ingredients = r.masterIngredients.map { mi ->
                 Ingredient(
                     name = trIng[mi.id]?.name ?: mi.name,
-                    amount = trIng[mi.id]?.standardAmount ?: mi.standardAmount,
+                    // A missing translated amount falls back to English, not Arabic.
+                    amount = trIng[mi.id]?.standardAmount
+                        ?: (if (isAr) null else en?.ingredients?.get(mi.id)?.standardAmount)
+                        ?: mi.standardAmount,
                 )
             },
             steps = r.uniqueInstructions.map { ui ->
