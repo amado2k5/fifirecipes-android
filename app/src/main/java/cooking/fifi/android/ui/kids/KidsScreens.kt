@@ -92,6 +92,7 @@ import cooking.fifi.android.ui.LocalStrings
 import cooking.fifi.android.ui.LocalWidthClass
 import cooking.fifi.android.ui.WidthClass
 import cooking.fifi.android.ui.components.ErrorView
+import cooking.fifi.android.ui.components.focusRing
 import cooking.fifi.android.ui.components.KidsArt
 import cooking.fifi.android.ui.components.KidsCardView
 import cooking.fifi.android.ui.components.LoadingView
@@ -263,6 +264,7 @@ fun KidsReadyScreen(id: String, pad: PaddingValues) {
                                 Modifier.fillMaxWidth().clip(shape)
                                     .background(if (on) KidsPalette.checkSoft else Color.White.copy(alpha = 0.88f))
                                     .border(3.dp, if (on) KidsPalette.checkGreen else KidsPalette.cardBorder, shape)
+                                    .focusRing(shape, 4.dp)
                                     .toggleable(on, role = Role.Checkbox) { ticked = if (on) ticked - i else ticked + i }
                                     .heightIn(min = 56.dp).padding(horizontal = 12.dp, vertical = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically,

@@ -39,6 +39,7 @@ import cooking.fifi.android.data.LanguageInfo
 import cooking.fifi.android.data.S
 import cooking.fifi.android.ui.LocalApp
 import cooking.fifi.android.ui.LocalStrings
+import cooking.fifi.android.ui.components.focusRing
 import cooking.fifi.android.ui.theme.Palette
 import cooking.fifi.android.ui.theme.TS
 import cooking.fifi.android.ui.theme.W
@@ -83,6 +84,7 @@ private fun LanguageTile(lang: LanguageInfo, selected: Boolean, onClick: () -> U
             .clip(shape)
             .background(if (selected) Palette.leafSoft else Palette.card)
             .border(if (selected) 3.dp else 1.5.dp, if (selected) Palette.leaf else Palette.cardBorder, shape)
+            .focusRing(shape)
             .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
             .heightIn(min = 72.dp)
             .padding(horizontal = 12.dp, vertical = 10.dp)

@@ -77,6 +77,7 @@ import cooking.fifi.android.ui.LocalApp
 import cooking.fifi.android.ui.LocalStrings
 import cooking.fifi.android.ui.components.ChipTone
 import cooking.fifi.android.ui.components.ErrorView
+import cooking.fifi.android.ui.components.focusRing
 import cooking.fifi.android.ui.components.LoadingView
 import cooking.fifi.android.ui.components.MetaChip
 import cooking.fifi.android.ui.components.RemoteImage
@@ -175,25 +176,32 @@ private fun RecipeContent(id: String, file: RecipeFile, videos: List<VideoItem>,
             Column(Modifier.fillMaxWidth().clip(shape).background(Palette.card).border(1.5.dp, Palette.cardBorder, shape)) {
                 loc.ingredients.forEachIndexed { i, ing ->
                     val on = i in ticked
+                    val rowShape = RoundedCornerShape(12.dp)
                     Row(
                         Modifier.fillMaxWidth()
+                            .padding(4.dp) // room for the focus ring inside the card
+                            .focusRing(rowShape)
+                            .clip(rowShape)
                             .toggleable(value = on, role = Role.Checkbox) { ticked = if (on) ticked - i else ticked + i }
-                            .heightIn(min = 52.dp).padding(horizontal = 14.dp, vertical = 10.dp)
+                            .heightIn(min = 48.dp).padding(horizontal = 10.dp, vertical = 8.dp)
                             .testTag("ingredient-$i"),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
                         Icon(if (on) Icons.Filled.CheckCircle else Icons.Outlined.Circle, null, tint = if (on) Palette.leaf else Palette.inkDim.copy(alpha = 0.5f), modifier = Modifier.size(26.dp))
-                        Text(
-                            ing.name, style = fifi(TS.Body, W.Medium).copy(textDecoration = if (on) TextDecoration.LineThrough else null),
-                            color = Palette.ink.copy(alpha = if (on) 0.6f else 1f), modifier = Modifier.weight(1f),
-                        )
-                        // Name and amount share the row — neither may starve the other.
-                        ing.amount?.let {
-                            Text(it, style = fifi(TS.Body, W.Bold), color = Palette.leafDeep, textAlign = TextAlign.End, modifier = Modifier.weight(0.7f, fill = false))
+                        // Amount stacked under the name: amounts can be whole phrases
+                        // ("500g fresh leaves, finely chopped with Makhrata") — side by
+                        // side they squeezed the name (same fix as the iOS/TV apps).
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            val alpha = if (on) 0.6f else 1f
+                            val strike = if (on) TextDecoration.LineThrough else null
+                            Text(ing.name, style = fifi(TS.Body, W.Medium).copy(textDecoration = strike), color = Palette.ink.copy(alpha = alpha))
+                            ing.amount?.let {
+                                Text(it, style = fifi(TS.Subheadline, W.Bold).copy(textDecoration = strike), color = Palette.leafDeep.copy(alpha = alpha))
+                            }
                         }
                     }
-                    if (i < loc.ingredients.lastIndex) HorizontalDivider(color = Palette.cardBorder, modifier = Modifier.padding(start = 14.dp))
+                    if (i < loc.ingredients.lastIndex) HorizontalDivider(color = Palette.cardBorder, modifier = Modifier.padding(horizontal = 14.dp))
                 }
             }
         }

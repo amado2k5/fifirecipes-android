@@ -21,8 +21,8 @@ android {
         applicationId = "cooking.fifi.android"
         minSdk = 26
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -59,12 +59,12 @@ android {
     androidResources {
         // Kids art ships as pre-compressed WebP.
         noCompress += "webp"
-        // Only the 24 languages the app ships (fifi.cooking manifest) — drops
+        // Only the 25 languages the app ships (fifi.cooking manifest) — drops
         // unused library translations and keeps Play's language list honest.
         // he/id also listed under Java's legacy iw/in codes.
         localeFilters += listOf(
             "ar", "de", "el", "en", "es", "fa", "fr", "he", "iw", "hi", "id", "in", "it", "ja",
-            "ko", "ku", "nl", "pl", "ps", "pt", "ru", "sv", "sw", "tr", "ur", "zh",
+            "ko", "ku", "nl", "pl", "ps", "pt", "ru", "sv", "sw", "te", "tr", "ur", "zh",
         )
     }
 
@@ -92,6 +92,7 @@ dependencies {
     debugImplementation(libs.compose.ui.test.manifest)
 
     testImplementation(libs.junit)
+    testImplementation(libs.okhttp.mockwebserver)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.runner)
     // Compose ui-test still pulls Espresso 3.5, which calls InputManager.getInstance
