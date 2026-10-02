@@ -8,6 +8,8 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.requestFocus
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -71,6 +73,15 @@ class KeyboardNavigationTest {
         press(KeyEvent.KEYCODE_ENTER)
         rule.waitUntilAtLeastOneExists(hasTestTag("ingredient-0"), 30_000)
         press(KeyEvent.KEYCODE_TAB)
+        // Where that Tab lands after the screen change varies on CI emulators
+        // (sometimes the bottom bar's Home, from which Down goes nowhere).
+        // What's under test is arrowing from the top bar into the page, so
+        // start from the top bar's Back button explicitly.
+        if (focused() != "backButton") {
+            rule.onNodeWithTag("backButton").requestFocus()
+            rule.waitForIdle()
+        }
+        assertEquals("backButton", focused())
         val visited = (1..4).map { press(KeyEvent.KEYCODE_DPAD_DOWN); focused() }
         assertTrue("Down from the top bar never entered the recipe: $visited", visited.any { it?.startsWith("ingredient-") == true })
 
