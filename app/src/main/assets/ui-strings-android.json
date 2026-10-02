@@ -192,6 +192,14 @@
    "back": "Tillbaka",
    "clearSearch": "Rensa sökning",
    "privacy": "Integritet"
+  },
+  "te": {
+   "aboutText": "FiFi Recipes డాక్టర్ ఫాతిమా ప్రియమైన ఈజిప్టు ఇంటి వంటకాలను మీ ఫోన్ లేదా ట్యాబ్లెట్‌కి తెస్తుంది — చూడండి, ఎంచుకోండి, వండండి. డేటా: fifi.cooking.",
+   "share": "షేర్ చేయండి",
+   "open": "తెరవండి",
+   "back": "వెనుకకు",
+   "clearSearch": "సెర్చ్ క్లియర్ చేయండి",
+   "privacy": "గోప్యతా విధానం"
   }
  }
 }
