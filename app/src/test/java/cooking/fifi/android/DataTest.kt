@@ -59,6 +59,23 @@ class DataTest {
         assertEquals("Kofta", l.subtitle)
     }
 
+    @Test fun partialTranslationsFallBackToEnglishNotArabic() {
+        // de has an ingredient map, but without i1's amount and without i2 at all.
+        val json = recipeJson.replace(
+            "\"fr\": {",
+            "\"de\": {\"ingredients\": {\"i1\": {\"name\": \"Rind\"}}},\n        \"fr\": {",
+        ).replace("\"i1\": {\"name\": \"Beef\", \"standardAmount\": \"500 g\"}}", "\"i1\": {\"name\": \"Beef\", \"standardAmount\": \"500 g\"}, \"i2\": {\"name\": \"Onion\", \"standardAmount\": \"1\"}}")
+        val l = RecipeLocalization.localize(ApiClient.json.decodeFromString(RecipeFile.serializer(), json), "de")
+        assertEquals("Rind", l.ingredients[0].name)
+        assertEquals("500 g", l.ingredients[0].amount) // English, not "٥٠٠ جم"
+        assertEquals("Onion", l.ingredients[1].name) // English, not "بصل"
+        assertEquals("1", l.ingredients[1].amount)
+        // Arabic still shows the Arabic master text.
+        val ar = RecipeLocalization.localize(ApiClient.json.decodeFromString(RecipeFile.serializer(), json), "ar")
+        assertEquals("٥٠٠ جم", ar.ingredients[0].amount)
+        assertEquals("بصل", ar.ingredients[1].name)
+    }
+
     @Test fun stepsSplitIntoCoreAlternativesAndTips() {
         val l = RecipeLocalization.localize(file, "en")
         assertEquals(listOf(1, 3), l.coreSteps.map { it.n })

@@ -70,8 +70,14 @@ object RecipeLocalization {
             culturalNotes = t.culturalNotes?.takeIf { it.isNotBlank() },
             ingredients = r.masterIngredients.map { mi ->
                 Ingredient(
-                    name = trIng[mi.id]?.name ?: mi.name,
-                    amount = trIng[mi.id]?.standardAmount ?: mi.standardAmount,
+                    // Missing translated name/amount fall back to English, never
+                    // to the Arabic master text (Arabic itself uses the master).
+                    name = trIng[mi.id]?.name
+                        ?: (if (isAr) null else en?.ingredients?.get(mi.id)?.name)
+                        ?: mi.name,
+                    amount = trIng[mi.id]?.standardAmount
+                        ?: (if (isAr) null else en?.ingredients?.get(mi.id)?.standardAmount)
+                        ?: mi.standardAmount,
                 )
             },
             steps = r.uniqueInstructions.map { ui ->
