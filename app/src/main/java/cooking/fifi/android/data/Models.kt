@@ -1,6 +1,17 @@
 package cooking.fifi.android.data
 
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.nullable
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.doubleOrNull
+import kotlin.math.roundToInt
 
 /*
  * Models matching docs/tv-api.md in the fifirecipes repo — the same contract
@@ -145,21 +156,54 @@ data class RecipeTranslation(
     val instructions: Map<String, String>? = null,
 )
 
+// Estimates are model-generated and sometimes fractional (servings 3.5 in 54
+// recipes). Strict Int decoding rejected the whole recipe file, so accept any
+// number and round it.
 @Serializable
 data class RecipeEstimate(
-    val servings: Int? = null,
-    val kcal: Int? = null,
-    val protein: Int? = null,
-    val fat: Int? = null,
-    val carbs: Int? = null,
-    val fiber: Int? = null,
-    val sugar: Int? = null,
+    @Serializable(with = RoundedIntSerializer::class) val servings: Int? = null,
+    @Serializable(with = RoundedIntSerializer::class) val kcal: Int? = null,
+    @Serializable(with = RoundedIntSerializer::class) val protein: Int? = null,
+    @Serializable(with = RoundedIntSerializer::class) val fat: Int? = null,
+    @Serializable(with = RoundedIntSerializer::class) val carbs: Int? = null,
+    @Serializable(with = RoundedIntSerializer::class) val fiber: Int? = null,
+    @Serializable(with = RoundedIntSerializer::class) val sugar: Int? = null,
 )
+
+/** Any JSON number, rounded to the nearest Int; anything else decodes as null. */
+object RoundedIntSerializer : KSerializer<Int?> {
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("RoundedInt", PrimitiveKind.INT).nullable
+
+    override fun deserialize(decoder: Decoder): Int? {
+        val element = (decoder as JsonDecoder).decodeJsonElement()
+        return (element as? JsonPrimitive)?.doubleOrNull?.roundToInt()
+    }
+
+    override fun serialize(encoder: Encoder, value: Int?) {
+        if (value == null) encoder.encodeNull() else encoder.encodeInt(value)
+    }
+}
+
+/** The estimate is optional garnish: a malformed one must never stop the recipe opening. */
+object LenientEstimateSerializer : KSerializer<RecipeEstimate?> {
+    override val descriptor: SerialDescriptor = RecipeEstimate.serializer().descriptor.nullable
+
+    override fun deserialize(decoder: Decoder): RecipeEstimate? {
+        val json = decoder as JsonDecoder
+        val element = json.decodeJsonElement()
+        return runCatching { json.json.decodeFromJsonElement(RecipeEstimate.serializer(), element) }.getOrNull()
+    }
+
+    override fun serialize(encoder: Encoder, value: RecipeEstimate?) {
+        if (value == null) encoder.encodeNull() else encoder.encodeSerializableValue(RecipeEstimate.serializer(), value)
+    }
+}
 
 @Serializable
 data class RecipeFile(
     val recipe: RecipeCore,
-    val estimate: RecipeEstimate? = null,
+    @Serializable(with = LenientEstimateSerializer::class) val estimate: RecipeEstimate? = null,
     val translations: Map<String, RecipeTranslation> = emptyMap(),
 )
 
