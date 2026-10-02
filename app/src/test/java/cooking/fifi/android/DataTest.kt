@@ -122,7 +122,7 @@ class DataTest {
     @Test fun bundledStringsCoverEveryKey() {
         val assets = listOf(File("src/main/assets"), File("app/src/main/assets")).first { it.exists() }
         val strings = UiStrings.parse(File(assets, "ui-strings.json").readText(), File(assets, "ui-strings-android.json").readText())
-        val langs = listOf("ar", "de", "el", "en", "es", "fa", "fr", "he", "hi", "id", "it", "ja", "ko", "ku", "nl", "pl", "ps", "pt", "ru", "sv", "sw", "tr", "ur", "zh")
+        val langs = listOf("ar", "de", "el", "en", "es", "fa", "fr", "he", "hi", "id", "it", "ja", "ko", "ku", "nl", "pl", "ps", "pt", "ru", "sv", "sw", "te", "tr", "ur", "zh")
         for (lang in langs) for (key in S.entries) {
             val v = strings.get(lang, key)
             assertTrue("$lang.$key missing", v != key.name || strings.get("en", key) == key.name)
