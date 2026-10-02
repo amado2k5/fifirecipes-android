@@ -39,6 +39,25 @@ class DataTest {
 
     private val file = ApiClient.json.decodeFromString(RecipeFile.serializer(), recipeJson)
 
+    // 54 live recipe files (meat-06, soup-03, ...) ship fractional estimates
+    // such as servings 3.5; they must still open.
+    @Test fun fractionalEstimateStillDecodes() {
+        val json = """{"recipe": {"id": "meat-06", "title": "T", "masterIngredients": [], "uniqueInstructions": []},
+            "estimate": {"servings": 3.5, "kcal": 412.6, "protein": 20}, "translations": {}}"""
+        val f = ApiClient.json.decodeFromString(RecipeFile.serializer(), json)
+        assertEquals(4, f.estimate?.servings)
+        assertEquals(413, f.estimate?.kcal)
+        assertEquals(20, f.estimate?.protein)
+    }
+
+    @Test fun malformedEstimateDoesNotBlockRecipe() {
+        val json = """{"recipe": {"id": "meat-06", "title": "T", "masterIngredients": [], "uniqueInstructions": []},
+            "estimate": "n/a", "translations": {}}"""
+        val f = ApiClient.json.decodeFromString(RecipeFile.serializer(), json)
+        assertNull(f.estimate)
+        assertEquals("meat-06", f.recipe.id)
+    }
+
     @Test fun arabicUsesMasterFieldsNeverEnglish() {
         val l = RecipeLocalization.localize(file, "ar")
         assertEquals("كفتة", l.title)
