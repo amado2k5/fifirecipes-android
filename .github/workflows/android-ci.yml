@@ -33,6 +33,9 @@ jobs:
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "$ANDROID_PLATFORM" "$ANDROID_BUILD_TOOLS" > /dev/null
       - name: Lint, unit tests, debug APK, release bundle
         run: ./gradlew --console=plain :app:lintRelease :app:testDebugUnitTest :app:assembleDebug :app:bundleRelease
+      - name: Annotate failing tests
+        if: failure()
+        run: python3 scripts/ci-annotate-failures.py app/build/test-results
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -72,6 +75,11 @@ jobs:
           profile: pixel_6
           disable-animations: true
           script: ./gradlew --console=plain :app:connectedDebugAndroidTest
+      # Raw job logs and artifacts aren't always reachable, so surface the
+      # failing test names and messages as annotations on the run.
+      - name: Annotate failing tests
+        if: failure()
+        run: python3 scripts/ci-annotate-failures.py app/build/outputs/androidTest-results
       - uses: actions/upload-artifact@v7
         if: always()
         with:
