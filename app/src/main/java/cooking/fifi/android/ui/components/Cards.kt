@@ -37,6 +37,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -173,6 +175,17 @@ fun InteractiveCard(
             }
         }
     }
+}
+
+/**
+ * Tomato focus ring for rows and chips reached by keyboard/D-pad (matches the
+ * TV apps). Place before the clickable/toggleable modifier so it sees focus.
+ */
+fun Modifier.focusRing(shape: Shape, width: Dp = 3.dp): Modifier = composed {
+    var focused by remember { mutableStateOf(false) }
+    this
+        .onFocusChanged { focused = it.hasFocus }
+        .border(if (focused) width else 0.dp, if (focused) Palette.tomato else Color.Transparent, shape)
 }
 
 enum class ChipTone(val bg: Color, val fg: Color) {

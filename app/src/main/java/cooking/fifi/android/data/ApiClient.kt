@@ -15,6 +15,8 @@ import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import okhttp3.Cache
+import okhttp3.Interceptor
+import okhttp3.Response
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
@@ -23,6 +25,32 @@ import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 
 class HttpException(val code: Int, val url: String) : IOException("HTTP $code for $url")
+
+/**
+ * Retries GETs that fail transiently — dropped mobile connections, timeouts,
+ * 5xx — twice with backoff. Shared by the JSON API and the Coil image loader,
+ * so a flaky cellular hiccup no longer leaves a recipe photo stuck on the
+ * placeholder (the iOS apps fixed the same symptom). Cancelled calls (screen
+ * scrolled away) are never retried.
+ */
+class RetryInterceptor(private val retries: Int = 2, private val baseDelayMs: Long = 400) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        if (request.method != "GET") return chain.proceed(request)
+        var attempt = 0
+        while (true) {
+            try {
+                val response = chain.proceed(request)
+                if (response.code < 500 || attempt >= retries) return response
+                response.close()
+            } catch (e: IOException) {
+                if (chain.call().isCanceled() || attempt >= retries) throw e
+            }
+            Thread.sleep(baseDelayMs * (1L shl attempt)) // 400ms, 800ms
+            attempt++
+        }
+    }
+}
 
 /**
  * Static JSON client for https://fifi.cooking/data/ — mirrors the TV/iOS
@@ -130,6 +158,7 @@ class ApiClient(
         fun create(context: Context, origin: String = DEFAULT_ORIGIN): ApiClient {
             val http = OkHttpClient.Builder()
                 .cache(Cache(File(context.cacheDir, "http"), 128L shl 20))
+                .addInterceptor(RetryInterceptor())
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build()

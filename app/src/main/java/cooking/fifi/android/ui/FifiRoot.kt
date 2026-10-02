@@ -335,8 +335,14 @@ private fun SectionContent(vm: AppViewModel, pad: PaddingValues) {
         targetState = key,
         transitionSpec = { fadeIn() togetherWith fadeOut() },
         label = "screen",
-        modifier = Modifier.fillMaxSize(),
+        // The body sits between the (opaque) bars rather than scrolling under
+        // them: keyboard/D-pad focus search only moves to targets strictly
+        // above/below, and a full-screen scroll container overlapping the bars
+        // was never "below" the top bar or "above" the bottom bar — arrows hopped
+        // bar-to-bar and skipped the page.
+        modifier = Modifier.fillMaxSize().padding(pad),
     ) { k ->
+        val pad = PaddingValues(0.dp)
         val parts = k.split('/', limit = 3)
         val route = parts[2].takeIf { it != "root" }?.let { Route.decode(it) }
         val section = Section.valueOf(parts[0])

@@ -16,7 +16,11 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
 import cooking.fifi.android.ui.theme.Palette
 
 /**
@@ -26,10 +30,26 @@ import cooking.fifi.android.ui.theme.Palette
  */
 @Composable
 fun RemoteImage(url: String?, modifier: Modifier = Modifier, contentScale: ContentScale = ContentScale.Crop) {
+    val context = LocalContext.current
+    // When the URL upgrades (800px card -> full-size once images.json arrives),
+    // keep the image already on screen until the sharper one is ready.
+    var shown by remember { mutableStateOf<String?>(null) }
     Box(modifier.background(Palette.leafSoft), contentAlignment = Alignment.Center) {
         TomatoMark(Modifier.size(44.dp))
         if (url != null) {
-            AsyncImage(model = url, contentDescription = null, contentScale = contentScale, modifier = Modifier.fillMaxSize())
+            val request = remember(url, shown) {
+                ImageRequest.Builder(context)
+                    .data(url)
+                    .placeholderMemoryCacheKey(shown?.takeIf { it != url })
+                    .build()
+            }
+            AsyncImage(
+                model = request,
+                contentDescription = null,
+                contentScale = contentScale,
+                modifier = Modifier.fillMaxSize(),
+                onSuccess = { shown = url },
+            )
         }
     }
 }
