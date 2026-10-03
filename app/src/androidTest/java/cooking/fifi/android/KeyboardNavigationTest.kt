@@ -8,8 +8,6 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.requestFocus
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -76,12 +74,11 @@ class KeyboardNavigationTest {
         // Where that Tab lands after the screen change varies on CI emulators
         // (sometimes the bottom bar's Home, from which Down goes nowhere).
         // What's under test is arrowing from the top bar into the page, so
-        // start from the top bar's Back button explicitly.
-        if (focused() != "backButton") {
-            rule.onNodeWithTag("backButton").requestFocus()
-            rule.waitForIdle()
-        }
-        assertEquals("backButton", focused())
+        // climb to the top bar (Back or Share) with real Up presses first.
+        // (A semantics requestFocus here raced Compose's layout on CI.)
+        val topBar = setOf("backButton", "shareButton")
+        repeat(40) { if (focused() !in topBar) press(KeyEvent.KEYCODE_DPAD_UP) }
+        assertTrue("expected the top bar, got ${focused()}", focused() in topBar)
         val visited = (1..4).map { press(KeyEvent.KEYCODE_DPAD_DOWN); focused() }
         assertTrue("Down from the top bar never entered the recipe: $visited", visited.any { it?.startsWith("ingredient-") == true })
 
