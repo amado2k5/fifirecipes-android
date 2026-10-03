@@ -42,7 +42,7 @@ app/src/main/java/cooking/fifi/android/
 │                       stacks (survive rotation/fold + process death);
 │                       Android 13+ per-app language sync
 ├── data/               API models, ApiClient (?v= versioning, in-flight dedupe,
-│                       kids en-fallback), UiStrings (24 languages), recipe
+│                       kids en-fallback), UiStrings (25 languages), recipe
 │                       localization rules, search, routes + deep links
 └── ui/
     ├── theme/          fresh-market Palette, per-language fonts, Material theme

@@ -36,7 +36,7 @@ are in this repo unless noted.
   `fifirecipes/scripts/generate-public-index.ts` and merge — otherwise
   fifi.cooking links won't auto-open in Play-installed copies of the app.
 - Release notes (1.0):
-  > First release: 1,000+ Egyptian family recipes from Dr. Fatma in 24 languages, a Kids cooking mode, recipe videos, and layouts for phones, foldables, tablets and Chromebooks.
+  > First release: 1,800+ Egyptian family recipes from Dr. Fatma in 25 languages, a Kids cooking mode, recipe videos, and layouts for phones, foldables, tablets and Chromebooks.
 
 ## 3. Main store listing
 
@@ -106,7 +106,7 @@ youtube-nocookie.com at the user's request — disclosed in the privacy policy.
    questionnaire about your testing), then promote the release. Review usually
    takes a few days for a new app.
 
-Countries/regions: all available (recipe content is global; 24 languages).
+Countries/regions: all available (recipe content is global; 25 languages).
 
 ## 6. After approval
 
@@ -127,5 +127,5 @@ Countries/regions: all available (recipe content is global; 24 languages).
       resizable, keyboard + mouse — Large-screen app quality guidelines
 - [x] Accessibility: TalkBack, 48dp targets, font scaling, contrast (automated tests)
 - [x] Only the INTERNET permission; no data collection; privacy policy live
-- [x] Per-app language (`locales_config`) for all 24 languages
+- [x] Per-app language (`locales_config`) for all 25 languages
 - [x] Android App Links (assetlinks.json served by fifi.cooking)
