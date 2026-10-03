@@ -39,7 +39,8 @@ class KeyboardNavigationTest {
         scenario = ActivityScenario.launch(MainActivity::class.java)
         rule.waitUntilAtLeastOneExists(hasTestTag("hero"), 30_000)
         // Key events only reach Compose once the window has input focus.
-        rule.waitUntil(10_000) {
+        // 10s wasn't always enough on CI right after the previous test's activity.
+        rule.waitUntil(30_000) {
             var focused = false
             scenario?.onActivity { focused = it.hasWindowFocus() }
             focused

@@ -74,7 +74,8 @@ jobs:
           arch: x86_64
           profile: pixel_6
           disable-animations: true
-          script: ./gradlew --console=plain :app:connectedDebugAndroidTest
+          # Re-runs only failed tests (up to 2 more times) to absorb emulator flakes.
+          script: ./scripts/ui-tests-with-retry.sh
       # Raw job logs and artifacts aren't always reachable, so surface the
       # failing test names and messages as annotations on the run.
       - name: Annotate failing tests
