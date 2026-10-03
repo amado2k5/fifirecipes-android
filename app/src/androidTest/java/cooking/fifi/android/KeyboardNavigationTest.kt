@@ -74,10 +74,11 @@ class KeyboardNavigationTest {
         // Where that Tab lands after the screen change varies on CI emulators
         // (sometimes the bottom bar's Home, from which Down goes nowhere).
         // What's under test is arrowing from the top bar into the page, so
-        // climb to the top bar's Back button with real Up presses first.
+        // climb to the top bar (Back or Share) with real Up presses first.
         // (A semantics requestFocus here raced Compose's layout on CI.)
-        repeat(40) { if (focused() != "backButton") press(KeyEvent.KEYCODE_DPAD_UP) }
-        assertEquals("backButton", focused())
+        val topBar = setOf("backButton", "shareButton")
+        repeat(40) { if (focused() !in topBar) press(KeyEvent.KEYCODE_DPAD_UP) }
+        assertTrue("expected the top bar, got ${focused()}", focused() in topBar)
         val visited = (1..4).map { press(KeyEvent.KEYCODE_DPAD_DOWN); focused() }
         assertTrue("Down from the top bar never entered the recipe: $visited", visited.any { it?.startsWith("ingredient-") == true })
 
