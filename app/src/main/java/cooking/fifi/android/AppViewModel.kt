@@ -165,8 +165,26 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
 
     fun select(s: Section) {
         // Re-selecting the current section pops it to its root (Material convention).
-        if (s == section) stacks.getValue(s).clear() else section = s
+        if (s == section) stacks.getValue(s).clear() else enterSection(s)
         persist()
+    }
+
+    private fun enterSection(s: Section) {
+        val toHome = s == Section.Home && section != Section.Home
+        section = s
+        if (toHome) refreshFeed()
+    }
+
+    /**
+     * Back on Home from another section: ask for a fresh home layout — the server returns a
+     * different random hero + rails on every request. Failures keep the current feed.
+     */
+    private fun refreshFeed() {
+        val code = lang
+        viewModelScope.launch {
+            val fresh = runCatching { api.feed(code) }.getOrNull() ?: return@launch
+            if (code == lang) feed = fresh
+        }
     }
 
     fun push(route: Route) {
@@ -179,7 +197,7 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
         val st = stacks.getValue(section)
         when {
             st.isNotEmpty() -> st.removeAt(st.lastIndex)
-            section != Section.Home -> section = Section.Home
+            section != Section.Home -> enterSection(Section.Home)
             else -> return false
         }
         persist()
