@@ -1,14 +1,6 @@
 {
  "_comment": "Android-only overrides merged over ui-strings.json (shared with iOS/iPad/TV). Never names Apple devices.",
  "strings": {
-  "en": {
-   "aboutText": "FiFi Recipes brings Dr. Fatma’s beloved Egyptian home cooking to your phone or tablet — browse, pick a recipe, and cook together. Recipe data is served fresh from fifi.cooking.",
-   "share": "Share",
-   "open": "Open",
-   "back": "Back",
-   "clearSearch": "Clear search",
-   "privacy": "Privacy policy"
-  },
   "ar": {
    "aboutText": "وصفات فيفي بتجيبلك أكلات د. فاطمة المصرية المحبوبة على موبايلك أو التابلت — اتفرجي، اختاري، واطبخي. البيانات تازة من fifi.cooking.",
    "share": "مشاركة",
@@ -17,21 +9,13 @@
    "clearSearch": "امسح البحث",
    "privacy": "سياسة الخصوصية"
   },
-  "fr": {
-   "aboutText": "FiFi Recipes apporte la cuisine familiale égyptienne du Dr Fatma sur votre téléphone ou tablette — parcourez, choisissez, cuisinez. Données : fifi.cooking.",
-   "share": "Partager",
-   "open": "Ouvrir",
-   "back": "Retour",
-   "clearSearch": "Effacer la recherche",
-   "privacy": "Confidentialité"
-  },
-  "es": {
-   "aboutText": "FiFi Recipes lleva la querida cocina casera egipcia de la Dra. Fatma a tu teléfono o tableta — explora, elige y cocina. Datos: fifi.cooking.",
-   "share": "Compartir",
-   "open": "Abrir",
-   "back": "Atrás",
-   "clearSearch": "Borrar búsqueda",
-   "privacy": "Privacidad"
+  "bn": {
+   "aboutText": "FiFi Recipes ড. ফাতমার প্রিয় মিশরীয় ঘরের রান্না আপনার ফোন বা ট্যাবলেটে নিয়ে আসে — ব্রাউজ করুন, রেসিপি বেছে নিন, একসাথে রান্না করুন। রেসিপির তথ্য সদ্য fifi.cooking থেকে আসে।",
+   "share": "শেয়ার করুন",
+   "open": "খুলুন",
+   "back": "ফিরে যান",
+   "clearSearch": "সার্চ মুছুন",
+   "privacy": "গোপনীয়তা নীতি"
   },
   "de": {
    "aboutText": "FiFi Recipes bringt Dr. Fatmas beliebte ägyptische Hausmannskost auf dein Smartphone oder Tablet — stöbern, wählen, kochen. Daten: fifi.cooking.",
@@ -41,6 +25,70 @@
    "clearSearch": "Suche löschen",
    "privacy": "Datenschutz"
   },
+  "el": {
+   "aboutText": "Το FiFi Recipes φέρνει την αγαπημένη αιγυπτιακή σπιτική κουζίνα της Δρ Φάτμα στο κινητό ή το tablet σας — δείτε, διαλέξτε, μαγειρέψτε. Δεδομένα: fifi.cooking.",
+   "share": "Κοινοποίηση",
+   "open": "Άνοιγμα",
+   "back": "Πίσω",
+   "clearSearch": "Εκκαθάριση αναζήτησης",
+   "privacy": "Απόρρητο"
+  },
+  "en": {
+   "aboutText": "FiFi Recipes brings Dr. Fatma’s beloved Egyptian home cooking to your phone or tablet — browse, pick a recipe, and cook together. Recipe data is served fresh from fifi.cooking.",
+   "share": "Share",
+   "open": "Open",
+   "back": "Back",
+   "clearSearch": "Clear search",
+   "privacy": "Privacy policy"
+  },
+  "es": {
+   "aboutText": "FiFi Recipes lleva la querida cocina casera egipcia de la Dra. Fatma a tu teléfono o tableta — explora, elige y cocina. Datos: fifi.cooking.",
+   "share": "Compartir",
+   "open": "Abrir",
+   "back": "Atrás",
+   "clearSearch": "Borrar búsqueda",
+   "privacy": "Privacidad"
+  },
+  "fa": {
+   "aboutText": "دستورهای فیفی آشپزی خانگی محبوب دکتر فاطما رو به گوشی یا تبلت شما میاره — ببینید، انتخاب کنید، بپزید. داده‌ها: fifi.cooking.",
+   "share": "اشتراک‌گذاری",
+   "open": "باز کردن",
+   "back": "بازگشت",
+   "clearSearch": "پاک کردن جستجو",
+   "privacy": "حریم خصوصی"
+  },
+  "fr": {
+   "aboutText": "FiFi Recipes apporte la cuisine familiale égyptienne du Dr Fatma sur votre téléphone ou tablette — parcourez, choisissez, cuisinez. Données : fifi.cooking.",
+   "share": "Partager",
+   "open": "Ouvrir",
+   "back": "Retour",
+   "clearSearch": "Effacer la recherche",
+   "privacy": "Confidentialité"
+  },
+  "he": {
+   "aboutText": "FiFi Recipes מביא את הבישול המצרי הביתי האהוב של ד״ר פאטמה לטלפון או לטאבלט שלכם — עיינו, בחרו, בשלו. נתונים: fifi.cooking.",
+   "share": "שיתוף",
+   "open": "פתיחה",
+   "back": "חזרה",
+   "clearSearch": "ניקוי החיפוש",
+   "privacy": "פרטיות"
+  },
+  "hi": {
+   "aboutText": "FiFi Recipes डॉ. फातमा के पसंदीदा मिस्री घर के खाने को आपके फ़ोन या टैबलेट पर लाता है — देखिए, चुनिए, पकाइए। डेटा: fifi.cooking.",
+   "share": "साझा करें",
+   "open": "खोलें",
+   "back": "वापस",
+   "clearSearch": "खोज साफ़ करें",
+   "privacy": "गोपनीयता"
+  },
+  "id": {
+   "aboutText": "FiFi Recipes menghadirkan masakan rumahan Mesir kesukaan Dr. Fatma ke ponsel atau tablet kamu — jelajahi, pilih, masak. Data: fifi.cooking.",
+   "share": "Bagikan",
+   "open": "Buka",
+   "back": "Kembali",
+   "clearSearch": "Hapus pencarian",
+   "privacy": "Privasi"
+  },
   "it": {
    "aboutText": "FiFi Recipes porta l’amata cucina casalinga egiziana della Dott.ssa Fatma sul tuo telefono o tablet — sfoglia, scegli, cucina. Dati: fifi.cooking.",
    "share": "Condividi",
@@ -48,30 +96,6 @@
    "back": "Indietro",
    "clearSearch": "Cancella ricerca",
    "privacy": "Privacy"
-  },
-  "pt": {
-   "aboutText": "FiFi Recipes leva a querida culinária caseira egípcia da Dra. Fatma ao seu celular ou tablet — navegue, escolha e cozinhe. Dados: fifi.cooking.",
-   "share": "Compartilhar",
-   "open": "Abrir",
-   "back": "Voltar",
-   "clearSearch": "Limpar busca",
-   "privacy": "Privacidade"
-  },
-  "ru": {
-   "aboutText": "FiFi Recipes переносит любимую египетскую домашнюю кухню доктора Фатмы на ваш телефон или планшет — выбирайте и готовьте. Данные: fifi.cooking.",
-   "share": "Поделиться",
-   "open": "Открыть",
-   "back": "Назад",
-   "clearSearch": "Очистить поиск",
-   "privacy": "Конфиденциальность"
-  },
-  "zh": {
-   "aboutText": "FiFi Recipes 把法特玛博士心爱的埃及家常菜带到你的手机或平板——浏览、挑选、一起做。数据来源：fifi.cooking。",
-   "share": "分享",
-   "open": "打开",
-   "back": "返回",
-   "clearSearch": "清除搜索",
-   "privacy": "隐私"
   },
   "ja": {
    "aboutText": "FiFi Recipes はファトマ博士の愛するエジプト家庭料理をあなたのスマートフォンやタブレット へお届けします。データ提供: fifi.cooking。",
@@ -89,46 +113,6 @@
    "clearSearch": "검색 지우기",
    "privacy": "개인정보 보호"
   },
-  "tr": {
-   "aboutText": "FiFi Recipes, Dr. Fatma’nın sevilen Mısır ev yemeklerini telefonunuza ve tabletinize taşır — göz atın, seçin, pişirin. Veri: fifi.cooking.",
-   "share": "Paylaş",
-   "open": "Aç",
-   "back": "Geri",
-   "clearSearch": "Aramayı temizle",
-   "privacy": "Gizlilik"
-  },
-  "hi": {
-   "aboutText": "FiFi Recipes डॉ. फातमा के पसंदीदा मिस्री घर के खाने को आपके फ़ोन या टैबलेट पर लाता है — देखिए, चुनिए, पकाइए। डेटा: fifi.cooking.",
-   "share": "साझा करें",
-   "open": "खोलें",
-   "back": "वापस",
-   "clearSearch": "खोज साफ़ करें",
-   "privacy": "गोपनीयता"
-  },
-  "ur": {
-   "aboutText": "فیفی ریسپیز ڈاکٹر فاطمہ کے پیارے مصری گھریلو کھانے آپ کے فون یا ٹیبلٹ پر لاتا ہے — دیکھیں، چنیں، پکائیں۔ ڈیٹا: fifi.cooking.",
-   "share": "شیئر کریں",
-   "open": "کھولیں",
-   "back": "واپس",
-   "clearSearch": "تلاش صاف کریں",
-   "privacy": "رازداری"
-  },
-  "fa": {
-   "aboutText": "دستورهای فیفی آشپزی خانگی محبوب دکتر فاطما رو به گوشی یا تبلت شما میاره — ببینید، انتخاب کنید، بپزید. داده‌ها: fifi.cooking.",
-   "share": "اشتراک‌گذاری",
-   "open": "باز کردن",
-   "back": "بازگشت",
-   "clearSearch": "پاک کردن جستجو",
-   "privacy": "حریم خصوصی"
-  },
-  "el": {
-   "aboutText": "Το FiFi Recipes φέρνει την αγαπημένη αιγυπτιακή σπιτική κουζίνα της Δρ Φάτμα στο κινητό ή το tablet σας — δείτε, διαλέξτε, μαγειρέψτε. Δεδομένα: fifi.cooking.",
-   "share": "Κοινοποίηση",
-   "open": "Άνοιγμα",
-   "back": "Πίσω",
-   "clearSearch": "Εκκαθάριση αναζήτησης",
-   "privacy": "Απόρρητο"
-  },
   "ku": {
    "aboutText": "FiFi Recipes xwarinên malê yên Misrî yên hezkirî yên Dr. Fatma tîne ser telefon an tableta we — bigere, hilbijêre, bipêje. Daneyên ji fifi.cooking.",
    "share": "Parve bike",
@@ -136,22 +120,6 @@
    "back": "Paş",
    "clearSearch": "Lêgerînê paqij bike",
    "privacy": "Nepenîtî"
-  },
-  "id": {
-   "aboutText": "FiFi Recipes menghadirkan masakan rumahan Mesir kesukaan Dr. Fatma ke ponsel atau tablet kamu — jelajahi, pilih, masak. Data: fifi.cooking.",
-   "share": "Bagikan",
-   "open": "Buka",
-   "back": "Kembali",
-   "clearSearch": "Hapus pencarian",
-   "privacy": "Privasi"
-  },
-  "sw": {
-   "aboutText": "FiFi Recipes huleta mapishi maarufu ya nyumbani ya Misri ya Dkt. Fatma kwenye simu au kompyuta kibao yako — vinjari, chagua, pika. Data: fifi.cooking.",
-   "share": "Shiriki",
-   "open": "Fungua",
-   "back": "Rudi",
-   "clearSearch": "Futa utafutaji",
-   "privacy": "Faragha"
   },
   "nl": {
    "aboutText": "FiFi Recipes brengt dr. Fatma’s geliefde Egyptische thuiskeuken naar je telefoon of tablet — blader, kies, kook. Data: fifi.cooking.",
@@ -161,6 +129,14 @@
    "clearSearch": "Zoekopdracht wissen",
    "privacy": "Privacy"
   },
+  "pl": {
+   "aboutText": "FiFi Recipes przenosi ukochaną egipską kuchnię domową dr Fatmy na Twój telefon lub tablet — przeglądaj, wybieraj, gotuj. Dane: fifi.cooking.",
+   "share": "Udostępnij",
+   "open": "Otwórz",
+   "back": "Wstecz",
+   "clearSearch": "Wyczyść wyszukiwanie",
+   "privacy": "Prywatność"
+  },
   "ps": {
    "aboutText": "فیفي ترکیبونه د ډاکټرې فاطمه ګران مصري کورني خواړه ستاسو ټيلیفون یا ټابلېټ ته راوړي — وګورئ، وټاکئ، وپخئ. معلومات: fifi.cooking.",
    "share": "شریکول",
@@ -169,21 +145,29 @@
    "clearSearch": "لټون پاک کړئ",
    "privacy": "محرمیت"
   },
-  "he": {
-   "aboutText": "FiFi Recipes מביא את הבישול המצרי הביתי האהוב של ד״ר פאטמה לטלפון או לטאבלט שלכם — עיינו, בחרו, בשלו. נתונים: fifi.cooking.",
-   "share": "שיתוף",
-   "open": "פתיחה",
-   "back": "חזרה",
-   "clearSearch": "ניקוי החיפוש",
-   "privacy": "פרטיות"
+  "pt": {
+   "aboutText": "FiFi Recipes leva a querida culinária caseira egípcia da Dra. Fatma ao seu celular ou tablet — navegue, escolha e cozinhe. Dados: fifi.cooking.",
+   "share": "Compartilhar",
+   "open": "Abrir",
+   "back": "Voltar",
+   "clearSearch": "Limpar busca",
+   "privacy": "Privacidade"
   },
-  "pl": {
-   "aboutText": "FiFi Recipes przenosi ukochaną egipską kuchnię domową dr Fatmy na Twój telefon lub tablet — przeglądaj, wybieraj, gotuj. Dane: fifi.cooking.",
-   "share": "Udostępnij",
-   "open": "Otwórz",
-   "back": "Wstecz",
-   "clearSearch": "Wyczyść wyszukiwanie",
-   "privacy": "Prywatność"
+  "ru": {
+   "aboutText": "FiFi Recipes переносит любимую египетскую домашнюю кухню доктора Фатмы на ваш телефон или планшет — выбирайте и готовьте. Данные: fifi.cooking.",
+   "share": "Поделиться",
+   "open": "Открыть",
+   "back": "Назад",
+   "clearSearch": "Очистить поиск",
+   "privacy": "Конфиденциальность"
+  },
+  "sq": {
+   "aboutText": "FiFi Recipes të sjell gatimin e dashur shtëpiak egjiptian të Dr. Fatmës në telefonin ose tabletin tënd — shfleto, zgjidh një recetë dhe gato bashkë. Të dhënat e recetave vijnë të freskëta nga fifi.cooking.",
+   "share": "Ndaj",
+   "open": "Hap",
+   "back": "Mbrapa",
+   "clearSearch": "Pastro kërkimin",
+   "privacy": "Politika e privatësisë"
   },
   "sv": {
    "aboutText": "FiFi Recipes tar dr Fatmas älskade egyptiska hemköksrecept till din telefon eller surfplatta — bläddra, välj, laga. Data: fifi.cooking.",
@@ -193,6 +177,14 @@
    "clearSearch": "Rensa sökning",
    "privacy": "Integritet"
   },
+  "sw": {
+   "aboutText": "FiFi Recipes huleta mapishi maarufu ya nyumbani ya Misri ya Dkt. Fatma kwenye simu au kompyuta kibao yako — vinjari, chagua, pika. Data: fifi.cooking.",
+   "share": "Shiriki",
+   "open": "Fungua",
+   "back": "Rudi",
+   "clearSearch": "Futa utafutaji",
+   "privacy": "Faragha"
+  },
   "te": {
    "aboutText": "FiFi Recipes డాక్టర్ ఫాతిమా ప్రియమైన ఈజిప్టు ఇంటి వంటకాలను మీ ఫోన్ లేదా ట్యాబ్లెట్‌కి తెస్తుంది — చూడండి, ఎంచుకోండి, వండండి. డేటా: fifi.cooking.",
    "share": "షేర్ చేయండి",
@@ -201,13 +193,21 @@
    "clearSearch": "సెర్చ్ క్లియర్ చేయండి",
    "privacy": "గోప్యతా విధానం"
   },
-  "bn": {
-   "aboutText": "FiFi Recipes ড. ফাতমার প্রিয় মিশরীয় ঘরের রান্না আপনার ফোন বা ট্যাবলেটে নিয়ে আসে — ব্রাউজ করুন, রেসিপি বেছে নিন, একসাথে রান্না করুন। রেসিপির তথ্য সদ্য fifi.cooking থেকে আসে।",
-   "share": "শেয়ার করুন",
-   "open": "খুলুন",
-   "back": "ফিরে যান",
-   "clearSearch": "সার্চ মুছুন",
-   "privacy": "গোপনীয়তা নীতি"
+  "tr": {
+   "aboutText": "FiFi Recipes, Dr. Fatma’nın sevilen Mısır ev yemeklerini telefonunuza ve tabletinize taşır — göz atın, seçin, pişirin. Veri: fifi.cooking.",
+   "share": "Paylaş",
+   "open": "Aç",
+   "back": "Geri",
+   "clearSearch": "Aramayı temizle",
+   "privacy": "Gizlilik"
+  },
+  "ur": {
+   "aboutText": "فیفی ریسپیز ڈاکٹر فاطمہ کے پیارے مصری گھریلو کھانے آپ کے فون یا ٹیبلٹ پر لاتا ہے — دیکھیں، چنیں، پکائیں۔ ڈیٹا: fifi.cooking.",
+   "share": "شیئر کریں",
+   "open": "کھولیں",
+   "back": "واپس",
+   "clearSearch": "تلاش صاف کریں",
+   "privacy": "رازداری"
   },
   "vi": {
    "aboutText": "FiFi Recipes mang những món ăn gia đình Ai Cập yêu thích của bác sĩ Fatma đến điện thoại hoặc máy tính bảng của bạn — duyệt, chọn một công thức và cùng nhau nấu. Dữ liệu công thức được cung cấp tươi mới từ fifi.cooking.",
@@ -216,6 +216,14 @@
    "back": "Quay lại",
    "clearSearch": "Xóa tìm kiếm",
    "privacy": "Chính sách quyền riêng tư"
+  },
+  "zh": {
+   "aboutText": "FiFi Recipes 把法特玛博士心爱的埃及家常菜带到你的手机或平板——浏览、挑选、一起做。数据来源：fifi.cooking。",
+   "share": "分享",
+   "open": "打开",
+   "back": "返回",
+   "clearSearch": "清除搜索",
+   "privacy": "隐私"
   }
  }
 }
