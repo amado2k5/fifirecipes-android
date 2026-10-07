@@ -16,7 +16,8 @@ import cooking.fifi.android.R
  * Per-language typefaces, mirroring the TV/iOS font stack:
  *   Latin → Plus Jakarta Sans · ar/ps/ku RTL → Tajawal · fa → Vazirmatn
  *   ur → Noto Nastaliq Urdu (tall line height) · he → Heebo
- *   bn → Noto Sans Bengali
+ *   bn → Noto Sans Bengali · vi → Latin stack (Jakarta and Baloo 2 both
+ *   ship the full Vietnamese precomposed glyph set — no extra faces)
  *   kids → Baloo 2 / Baloo Bhaijaan 2 (RTL) / Heebo (he) / Baloo Da 2 (bn)
  * Scripts a face lacks (CJK, Cyrillic, Greek, Devanagari) fall back per glyph
  * to the system fonts. All sizes are `sp`, so they follow the user's font
