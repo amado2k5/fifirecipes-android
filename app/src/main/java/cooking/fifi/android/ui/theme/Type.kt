@@ -16,7 +16,8 @@ import cooking.fifi.android.R
  * Per-language typefaces, mirroring the TV/iOS font stack:
  *   Latin → Plus Jakarta Sans · ar/ps/ku RTL → Tajawal · fa → Vazirmatn
  *   ur → Noto Nastaliq Urdu (tall line height) · he → Heebo
- *   kids → Baloo 2 / Baloo Bhaijaan 2 (RTL) / Heebo (he)
+ *   bn → Noto Sans Bengali
+ *   kids → Baloo 2 / Baloo Bhaijaan 2 (RTL) / Heebo (he) / Baloo Da 2 (bn)
  * Scripts a face lacks (CJK, Cyrillic, Greek, Devanagari) fall back per glyph
  * to the system fonts. All sizes are `sp`, so they follow the user's font
  * size setting (Android's Dynamic Type).
@@ -58,15 +59,27 @@ object FifiFonts {
         Font(R.font.baloobhaijaan2_600, FontWeight.SemiBold),
         Font(R.font.baloobhaijaan2_800, FontWeight.ExtraBold),
     )
+    private val bengali = FontFamily(
+        Font(R.font.notosansbengali_400, FontWeight.Normal),
+        Font(R.font.notosansbengali_500, FontWeight.Medium),
+        Font(R.font.notosansbengali_700, FontWeight.Bold),
+    )
+    private val balooBengali = FontFamily(
+        Font(R.font.balooda2_400, FontWeight.Normal),
+        Font(R.font.balooda2_600, FontWeight.SemiBold),
+        Font(R.font.balooda2_800, FontWeight.ExtraBold),
+    )
 
     private val rtl = setOf("ar", "ur", "fa", "ps", "he", "ku")
 
     fun family(lang: String, kids: Boolean): FontFamily = when {
         kids && lang == "he" -> heebo
+        kids && lang == "bn" -> balooBengali
         kids -> if (lang in rtl) balooArabic else baloo
         lang == "ur" -> nastaliq
         lang == "fa" -> vazirmatn
         lang == "he" -> heebo
+        lang == "bn" -> bengali
         lang in rtl -> tajawal
         else -> jakarta
     }
