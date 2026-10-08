@@ -36,7 +36,7 @@ are in this repo unless noted.
   `fifirecipes/scripts/generate-public-index.ts` and merge — otherwise
   fifi.cooking links won't auto-open in Play-installed copies of the app.
 - Release notes (1.0):
-  > First release: 1,800+ Egyptian family recipes from Dr. Fatma in 25 languages, a Kids cooking mode, recipe videos, and layouts for phones, foldables, tablets and Chromebooks.
+  > First release: 2,300+ family recipes from Egypt and around the world from Dr. Fatma in 25 languages, a Kids cooking mode, recipe videos, and layouts for phones, foldables, tablets and Chromebooks.
 
 ## 3. Main store listing
 
