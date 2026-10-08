@@ -11,7 +11,30 @@ RESULTS=app/build/outputs/androidTest-results/connected
 RETRIES=${UI_TEST_RETRIES:-2}
 
 run() {
+  prepare_emulator
   ./gradlew --console=plain :app:connectedDebugAndroidTest "$@"
+}
+
+# Tests that send key events wait for the activity's window to gain input
+# focus. On CI emulators that can never happen when something sits on top of
+# the app: a system "isn't responding" (ANR) dialog, the keyguard, or a
+# screen that went to sleep — and every retry on the same emulator then hits
+# the same wall. Clear all of that before each attempt.
+prepare_emulator() {
+  echo "Focused window before run: $(focused_window)"
+  adb shell settings put global hide_error_dialogs 1 || true
+  adb shell settings put system screen_off_timeout 2147483647 || true
+  adb shell svc power stayon true || true
+  adb shell input keyevent KEYCODE_WAKEUP || true
+  adb shell wm dismiss-keyguard || true
+  adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS > /dev/null || true
+  adb shell input keyevent KEYCODE_HOME || true
+  sleep 2
+  echo "Focused window after prep: $(focused_window)"
+}
+
+focused_window() {
+  adb shell dumpsys window 2>/dev/null | grep -m1 mCurrentFocus | tr -d '\r' | sed 's/^ *//'
 }
 
 # Comma-separated Class#method list of failed/errored test cases.
@@ -48,5 +71,5 @@ for attempt in $(seq 1 "$RETRIES"); do
   fi
 done
 
-echo "::error::UI tests still failing after ${RETRIES} retries: $(failed_tests)"
+echo "::error::UI tests still failing after ${RETRIES} retries: $(failed_tests) (focused window: $(focused_window))"
 exit 1
