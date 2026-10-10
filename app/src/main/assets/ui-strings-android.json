@@ -209,13 +209,13 @@
    "clearSearch": "تلاش صاف کریں",
    "privacy": "رازداری"
   },
-  "cs":{"aboutText":"FiFi Recipes přináší oblíbenou egyptskou domácí kuchyni dr. Fatmy na váš telefon nebo tablet — prohlížejte, vyberte recept a vařte spolu. Recepty jsou čerstvé z fifi.cooking.","share":"Sdílet","open":"Otevřít","back":"Zpět","clearSearch":"Vymazat hledání","privacy":"Zásady ochrany osobních údajů"},"bn": {
-   "aboutText": "FiFi Recipes ড. ফাতমার প্রিয় মিশরীয় ঘরের রান্না আপনার ফোন বা ট্যাবলেটে নিয়ে আসে — ব্রাউজ করুন, রেসিপি বেছে নিন, একসাথে রান্না করুন। রেসিপির তথ্য সদ্য fifi.cooking থেকে আসে।",
-   "share": "শেয়ার করুন",
-   "open": "খুলুন",
-   "back": "ফিরে যান",
-   "clearSearch": "সার্চ মুছুন",
-   "privacy": "গোপনীয়তা নীতি"
+  "cs": {
+   "aboutText": "FiFi Recipes přináší oblíbenou egyptskou domácí kuchyni dr. Fatmy na váš telefon nebo tablet — prohlížejte, vyberte recept a vařte spolu. Recepty jsou čerstvé z fifi.cooking.",
+   "share": "Sdílet",
+   "open": "Otevřít",
+   "back": "Zpět",
+   "clearSearch": "Vymazat hledání",
+   "privacy": "Zásady ochrany osobních údajů"
   },
   "vi": {
    "aboutText": "FiFi Recipes mang những món ăn gia đình Ai Cập yêu thích của bác sĩ Fatma đến điện thoại hoặc máy tính bảng của bạn — duyệt, chọn một công thức và cùng nhau nấu. Dữ liệu công thức được cung cấp tươi mới từ fifi.cooking.",
@@ -232,6 +232,14 @@
    "back": "返回",
    "clearSearch": "清除搜索",
    "privacy": "隐私"
+  },
+  "ro": {
+   "aboutText": "FiFi Recipes aduce iubita bucătărie de casă egipteană a dr. Fatma pe telefonul sau tableta dvs. — răsfoiți, alegeți o rețetă și gătiți împreună. Datele rețetelor vin proaspete de la fifi.cooking.",
+   "share": "Distribuiți",
+   "open": "Deschideți",
+   "back": "Înapoi",
+   "clearSearch": "Ștergeți căutarea",
+   "privacy": "Politica de confidențialitate"
   }
  }
 }
