@@ -4,8 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -62,6 +63,7 @@ fun HomeScreen(pad: PaddingValues) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun Hero(wide: Boolean) {
     val app = LocalApp.current
@@ -83,7 +85,9 @@ private fun Hero(wide: Boolean) {
             Column(Modifier.align(Alignment.BottomStart).padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(s[S.tagline], style = fifi(TS.Footnote, W.Medium), color = Color.White.copy(alpha = 0.92f))
                 Text(card.title, style = fifi(TS.Title, W.Heavy), color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                // FlowRow, not Row: a long prep time ("1 hr + 3 hr chilling and rising")
+                // used to squeeze the cook chip into a one-character-wide column.
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     card.prepTime?.let { MetaChip(it, tone = ChipTone.Leaf, label = s[S.prep]) }
                     card.cookTime?.let { MetaChip(it, tone = ChipTone.Tomato, label = s[S.cook]) }
                 }
