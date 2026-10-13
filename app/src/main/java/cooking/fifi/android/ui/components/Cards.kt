@@ -201,9 +201,11 @@ fun MetaChip(text: String, modifier: Modifier = Modifier, tone: ChipTone = ChipT
             .background(tone.bg, CircleShape)
             .padding(horizontal = 14.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (label != null) Text(label, style = fifi(TS.Subheadline, W.Medium), color = tone.fg.copy(alpha = 0.75f))
-        Text(text, style = fifi(TS.Subheadline, W.Medium), color = tone.fg)
+        // Single line: a pill must never wrap character-by-character when space is tight.
+        if (label != null) Text(label, style = fifi(TS.Subheadline, W.Medium), color = tone.fg.copy(alpha = 0.75f), maxLines = 1, softWrap = false)
+        Text(text, style = fifi(TS.Subheadline, W.Medium), color = tone.fg, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
     }
 }
 
