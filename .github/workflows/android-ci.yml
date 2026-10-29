@@ -33,6 +33,8 @@ jobs:
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "$ANDROID_PLATFORM" "$ANDROID_BUILD_TOOLS" > /dev/null
       - name: Lint, unit tests, debug APK, release bundle
         run: ./gradlew --console=plain :app:lintRelease :app:testDebugUnitTest :app:assembleDebug :app:bundleRelease
+      - name: No Play-restricted permissions in the release manifest
+        run: python3 scripts/check-permissions.py app/build/intermediates
       - name: Annotate failing tests
         if: failure()
         run: python3 scripts/ci-annotate-failures.py app/build/test-results

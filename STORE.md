@@ -127,5 +127,32 @@ Countries/regions: all available (recipe content is global; 25 languages).
       resizable, keyboard + mouse — Large-screen app quality guidelines
 - [x] Accessibility: TalkBack, 48dp targets, font scaling, contrast (automated tests)
 - [x] Only the INTERNET permission; no data collection; privacy policy live
+      (CI fails if a library merges in a Play-restricted permission:
+      `scripts/check-permissions.py`)
 - [x] Per-app language (`locales_config`) for all 25 languages
 - [x] Android App Links (assetlinks.json served by fifi.cooking)
+
+## Google Play policy review (October 2026 update)
+
+Reviewed against the policy email of 29 Oct 2026. The app's merged manifest
+requests only `INTERNET` (plus androidx's internal signature-level receiver
+permission), it has no in-app purchases or subscriptions, no ads, no account
+and no AppFunctions.
+
+| Policy | Applies? | Action |
+|--------|----------|--------|
+| Local Network permission (targetSdk 37) | No — not requested | None. CI blocks `ACCESS_LOCAL_NETWORK` / `NEARBY_WIFI_DEVICES`. |
+| Manage Contacts permission | No — not requested | None. |
+| AppFunctions API | No — not implemented | None. |
+| Subscriptions with eligibility-based discounts | No — app is free, no billing | None. |
+| Location (mandatory 27 Jan 2027, location button on API 37) | No — not requested | None. CI blocks all location permissions. |
+| All Files Access (`MANAGE_EXTERNAL_STORAGE`) | No | None. |
+| Accessibility API / `isAccessibilityTool` | No — no AccessibilityService | None (the app *supports* TalkBack; that is not the API). |
+| SMS / Call Log (`READ_CALL_LOG` change 27 Jan 2027) | No | None. |
+| Deceptive behavior, Payments for AI/agentic purchases, Cryptocurrency, Families ads SDKs | No | None. |
+| **Trader status** (from Nov 2026) | **Yes — every developer** | Declare trader / non-trader in Play Console › Account details. |
+| Japan payments authorization (1 Dec 2026) | Only if you sell paid apps/IAP | Not needed while the app is free with no purchases; check Payments profile for a prompt anyway. |
+| Play Age Signals API | Optional | Not adopted: the app collects nothing and has no age-gated content. Kids mode is open to all. Revisit if Families program is required. |
+| Memory / code optimization quality (Feb 2027) | **Yes — check** | Watch Android vitals (memory, ANR, app size) for the release; R8 + resource shrinking already on. |
+| Cars games / Android XR guidelines | No | None. |
+
