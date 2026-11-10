@@ -13,5 +13,6 @@ build/
 keystore.properties
 *.jks
 *.keystore
+upload_certificate.pem
 /release/
 node_modules/
