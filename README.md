@@ -95,18 +95,19 @@ launcher and store icons from the iPad repo (`cd scripts && npm install` first).
 
 The upload key (`fifi-upload.jks`) and `keystore.properties` live in the repo
 root locally and are **gitignored** — back both up somewhere safe (password
-manager / encrypted drive). Losing the upload key means asking Google Play
-support for an upload-key reset.
+manager / encrypted drive).
 
 - Local: `./gradlew :app:bundleRelease` signs with the upload key when
   `keystore.properties` exists (unsigned otherwise).
-- CI: pushing a tag `v*` builds a signed APK + AAB and attaches them to a
-  GitHub release, once these repository secrets exist:
-  - `UPLOAD_KEYSTORE_BASE64` — `base64 -i fifi-upload.jks | pbcopy`
-  - `UPLOAD_KEYSTORE_PASSWORD` — the password in `keystore.properties`
+- CI: pushing a tag `v*` builds a signed APK + AAB and attaches them to the
+  tag's GitHub release (creating it, or uploading to one that already
+  exists), once the `UPLOAD_KEYSTORE_BASE64` / `UPLOAD_KEYSTORE_PASSWORD`
+  repository secrets are set.
 
 Bump `versionCode` (and `versionName`) in `app/build.gradle.kts` for every
-Play upload. Store submission details: **[STORE.md](STORE.md)**.
+Play upload. Store submission details: **[STORE.md](STORE.md)**. Secrets
+setup, upload-key recovery (Path A: key found / Path B: Play App Signing
+reset) and release runbooks: **[RELEASING.md](RELEASING.md)**.
 
 ## CI
 

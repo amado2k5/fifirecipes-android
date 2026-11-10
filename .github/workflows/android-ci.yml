@@ -3,7 +3,7 @@ name: Android CI
 # Every PR and every merge to main: lint, unit tests, debug APK, release AAB.
 # Instrumented UI tests (live fifi.cooking API) run on an emulator on main
 # and on demand. Tags v* additionally build a signed release when the upload
-# key secrets are configured (see README › Releasing).
+# key secrets are configured (see RELEASING.md).
 on:
   push:
     branches: [main]
@@ -107,7 +107,13 @@ jobs:
           UPLOAD_KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}
           UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
         run: |
-          if [ -z "$UPLOAD_KEYSTORE_BASE64" ]; then echo "::error::UPLOAD_KEYSTORE_BASE64 secret not set"; exit 1; fi
+          missing=""
+          if [ -z "$UPLOAD_KEYSTORE_BASE64" ]; then missing="$missing UPLOAD_KEYSTORE_BASE64"; fi
+          if [ -z "$UPLOAD_KEYSTORE_PASSWORD" ]; then missing="$missing UPLOAD_KEYSTORE_PASSWORD"; fi
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secrets:$missing — add them per RELEASING.md › Upload-key secrets"
+            exit 1
+          fi
           echo "$UPLOAD_KEYSTORE_BASE64" | base64 -d > fifi-upload.jks
           printf 'storeFile=fifi-upload.jks\nstorePassword=%s\nkeyAlias=fifi-upload\nkeyPassword=%s\n' \
             "$UPLOAD_KEYSTORE_PASSWORD" "$UPLOAD_KEYSTORE_PASSWORD" > keystore.properties
@@ -117,7 +123,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp app/build/outputs/apk/release/app-release.apk "fifi-recipes-${GITHUB_REF_NAME}.apk"
-          cp app/build/outputs/bundle/release/app-release.aab "fifi-recipes-${GITHUB_REF_NAME}.aab"
-          gh release create "$GITHUB_REF_NAME" "fifi-recipes-${GITHUB_REF_NAME}.apk" "fifi-recipes-${GITHUB_REF_NAME}.aab" \
-            --title "FiFi Recipes ${GITHUB_REF_NAME}" --generate-notes
+          apk="fifi-recipes-${GITHUB_REF_NAME}.apk"
+          aab="fifi-recipes-${GITHUB_REF_NAME}.aab"
+          cp app/build/outputs/apk/release/app-release.apk "$apk"
+          cp app/build/outputs/bundle/release/app-release.aab "$aab"
+          # A release may already exist for the tag (e.g. published from the
+          # web UI first) — upload to it instead of failing on create.
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            echo "Release $GITHUB_REF_NAME already exists — uploading assets"
+            gh release upload "$GITHUB_REF_NAME" "$apk" "$aab" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$apk" "$aab" \
+              --title "FiFi Recipes ${GITHUB_REF_NAME}" --generate-notes
+          fi
